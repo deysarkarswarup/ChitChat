@@ -1,4 +1,7 @@
+package FinalProject;
+
 import javax.swing.*;
+import javax.swing.JTextArea;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +22,7 @@ public class SocketClient extends JFrame implements ActionListener, Runnable {
     PrintWriter pw;
 
     public SocketClient() {
-        super("Joto Iccha Chat Koro");
+        super("ChitChat app");
         setFont(new Font("Arial Black", Font.PLAIN, 12));
         setForeground(new Color(0, 0, 51));
         setBackground(new Color(51, 0, 0));
@@ -30,24 +33,31 @@ public class SocketClient extends JFrame implements ActionListener, Runnable {
 
         textArea.setBackground(new Color(0, 0, 0));
 
-/*
-         JMenu helpMenu = new JMenu("Help");
+
+        JMenu helpMenu = new JMenu("Help");
         JMenuItem update = new JMenuItem("Update Information");
         JMenuItem connect_List = new JMenuItem("Visitor List");
 
+        /* Lines 42, and 45, I want to add a menu option of logging a file to the application that runs
+        *
+        * Line 106 is where I am implementing it, however I am stuck trying to figure out how to get it to
+        *
+        * log the user input*/
+
+        JMenuItem log = new JMenuItem("Log the conversation");
         helpMenu.add(update);
         helpMenu.add(connect_List);
-
+        helpMenu.add(log);
         menuBar.add(helpMenu);
         setJMenuBar(menuBar);
-*/
+
         getContentPane().add(jp, "Center");
         input_Text.setText("Enter your Message:");
         input_Text.setToolTipText("Enter your Message");
         input_Text.setForeground(new Color(0, 0, 0));
         input_Text.setFont(new Font("Tahoma", Font.BOLD, 11));
         input_Text.setBackground(new Color(230, 230, 250));
-        
+
         getContentPane().add(input_Text, "South");
         setSize(325, 411);
         setVisible(true);
@@ -61,14 +71,17 @@ public class SocketClient extends JFrame implements ActionListener, Runnable {
 
     public void serverConnection() {
         try {
-            String IP = JOptionPane.showInputDialog(this, "Please enter a server IP.", JOptionPane.INFORMATION_MESSAGE);
+            String IP = JOptionPane.showInputDialog(this, "Please enter a server IP.",
+                    JOptionPane.INFORMATION_MESSAGE);
             sk = new Socket(IP, 1234);
 
-            String name = JOptionPane.showInputDialog(this, "Please enter a nickname", JOptionPane.INFORMATION_MESSAGE);
-/*            while (name.length() > 7) {
-                name = JOptionPane.showInputDialog(this, "Please enter a nickname.(7 characters or less)", JOptionPane.INFORMATION_MESSAGE);
+            String name = JOptionPane.showInputDialog(this, "Please enter a nickname",
+                    JOptionPane.INFORMATION_MESSAGE);
+            while (name.length() > 7) {
+                name = JOptionPane.showInputDialog(this, "Please enter a nickname.(7 characters or less)",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
-*/
+
             //read
             br = new BufferedReader(new InputStreamReader(sk.getInputStream()));
 
@@ -92,6 +105,8 @@ public class SocketClient extends JFrame implements ActionListener, Runnable {
         String data = null;
         try {
             while ((data = br.readLine()) != null) {
+                //GetTextArea
+                textArea.getText();
                 textArea.append(data + "\n"); //textArea Decrease the position of the box's scroll bar by the length of the text entered
                 textArea.setCaretPosition(textArea.getText().length());
             }
