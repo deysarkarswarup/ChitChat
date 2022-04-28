@@ -34,7 +34,7 @@ public class SocketClient extends JFrame implements ActionListener, Runnable {
         textArea.setBackground(new Color(0, 0, 0));
 
 
-        JMenu helpMenu = new JMenu("Help");
+        JMenu helpMenu = new JMenu("Menu");
         JMenuItem update = new JMenuItem("Update Information");
         JMenuItem connect_List = new JMenuItem("Visitor List");
 
@@ -47,7 +47,7 @@ public class SocketClient extends JFrame implements ActionListener, Runnable {
         JMenuItem log = new JMenuItem("Log the conversation");
         helpMenu.add(update);
         helpMenu.add(connect_List);
-        helpMenu.add(log);
+        helpMenu.add(log); //added as well
         menuBar.add(helpMenu);
         setJMenuBar(menuBar);
 
@@ -106,7 +106,7 @@ public class SocketClient extends JFrame implements ActionListener, Runnable {
         try {
             while ((data = br.readLine()) != null) {
                 //GetTextArea
-                textArea.getText();
+                //textArea.getText(new JTextArea(MenuItem log));
                 textArea.append(data + "\n"); //textArea Decrease the position of the box's scroll bar by the length of the text entered
                 textArea.setCaretPosition(textArea.getText().length());
             }
